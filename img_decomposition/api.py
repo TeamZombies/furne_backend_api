@@ -12,10 +12,7 @@ web_app = FastAPI()
 async def decompose_and_return_response(
     image: UploadFile = File(...)
 ) -> list[DecompositionResponse]:
-    try:
-        # Log that w're here
-        logger.info(msg="Received request to decompose an image.")
-        
+    try:       
         # Decompose the image
         response: list[DecompositionResponse] = decompose_image.local(image)
 

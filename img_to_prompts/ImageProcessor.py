@@ -2,7 +2,6 @@ import torch
 import os
 from PIL import Image
 import json
-
 from transformers import ViltProcessor, ViltForQuestionAnswering
 
 # Initialize the ImageProcessor class
@@ -32,7 +31,6 @@ class ImageProcessor(object):
         self.obj_det_model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # or yolov5m, yolov5x, custom
         # Set the classes for the object detection model
         self.obj_det_model.classes = self.classes
-
         
         # Load the image to text processor
         self.img2text_processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
@@ -45,11 +43,7 @@ class ImageProcessor(object):
         self.results_dir = results_dir
 
     def detect_obj(self,img_file_path):
-        # This method is used to detect objects in the image.
-        # It takes the image file path as an input.
-        # The image is passed through the object detection model.
-        # The model returns the results of the object detection.
-        # These results are then returned by the method.
+        # Detect objects in the image
         results = self.obj_det_model(img_file_path)
         return results
 

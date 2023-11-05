@@ -31,7 +31,22 @@ app_image = (
     .pip_install(
         "fastapi",
         "pydantic",
-        "uuid"
+        "uuid",
+        "gitpython>=3.1.30",
+        "matplotlib>=3.3",
+        "numpy>=1.22.2",
+        "opencv-python>=4.1.1",
+        "Pillow>=10.0.1",
+        "psutil",
+        "PyYAML>=5.3.1",
+        "requests>=2.23.0",
+        "scipy>=1.4.1",
+        "thop>=0.1.1",
+        "torch>=1.8.0",
+        "torchvision>=0.9.0",
+        "tqdm>=4.64.0",
+        "ultralytics>=8.0.147",
+        "transformers"
     )
 )
 
@@ -69,7 +84,11 @@ def fastapi_app() -> FastAPI:
 def decompose_image(image) -> list[DecompositionResponse]:
     # Detect objects in the image and return a list of bounding boxes and
     # keyword labels
-    logger.info(msg="Detecting objects in the image.")
+    img_dir = 'Images'
+    results_dir = 'Results'
+    img_file = 'img_00.png'
+    prompts = generate_img_text_prompts(img_dir, results_dir, OBJ_DET_MODEL, IMG2TEXT_PROCESSOR, IMG2TEXT_MODEL, img_file)
+
 
     # Based on the bounding boxes, crop the original image into smaller images
     # and generate a uuid for each cropped image
@@ -89,7 +108,7 @@ def decompose_image(image) -> list[DecompositionResponse]:
         )
     ]
 
-# Register the transcribe_segment function with the stub
+# Register the search function with the stub
 @stub.function(
     image=app_image,
     network_file_systems={CACHE_DIR: volume},
@@ -97,3 +116,4 @@ def decompose_image(image) -> list[DecompositionResponse]:
 )
 def async_search(*args, **kwargs):
     return search(*args, **kwargs)
+
