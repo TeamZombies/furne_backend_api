@@ -4,14 +4,26 @@ import os
 import uuid
 
 # Define constants and load models once to avoid reloading them every time a function is called
-CLASSES = ["chair","couch","potted plant","bed","dining table","toilet",
-              "tv","microwave","oven","sink","refrigerator","clock"]
+CLASS_DICT = {
+        56: "chair",
+        57: "couch",
+        58: "potted plant",
+        59: "bed",
+        60: "dining table",
+        61: "toilet",
+        62: "tv",
+        68: "microwave",
+        69: "oven",
+        71: "sink",
+        72: "refrigerator",
+        74: "clock"
+    }
 
 # Load models
 OBJ_DET_MODEL = torch.hub.load('ultralytics/yolov5', 'yolov5s')
-OBJ_DET_MODEL.classes = CLASSES
+OBJ_DET_MODEL.classes = [key for key in CLASS_DICT.keys()]
 
-def get_cropped_images(obj_det_model, img: Image, img_results_dir: str) -> tuple[list, list]:
+def get_cropped_images(obj_det_model, img: Image, img_results_dir: str) -> tuple[list, list, list]:
     # Convert PIL Image to a format suitable for the model if required
     img_for_detection = img
     if isinstance(img, Image.Image):
@@ -38,4 +50,4 @@ def get_cropped_images(obj_det_model, img: Image, img_results_dir: str) -> tuple
         cropped_image.save(cropped_file_name)
         cropped_image_files.append(cropped_file_name)
 
-    return cropped_image_files, class_list
+    return uuids, cropped_image_files, class_list

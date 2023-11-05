@@ -1,19 +1,28 @@
+import pytest
 import os
 from PIL import Image
 from img_decomposition.detect import get_cropped_images, OBJ_DET_MODEL
 
-def test_get_cropped_images() -> None:
+# Fixture to create a temporary directory for the test results
+@pytest.fixture
+def img_results_dir() -> str:
+    # Create a temporary directory for the test results
+    img_results_dir = os.path.join(os.path.dirname(p=__file__), 'results')
+    os.mkdir(img_results_dir)
+
+    # Return the temporary directory
+    return img_results_dir
+
+
+def test_get_cropped_images(img_results_dir) -> None:
     # Load the test image
     img = Image.open(fp=os.path.join(os.path.dirname(p=__file__), '..', 'room.png'))
 
-    # Define the results directory and ensure it exists
-    img_results_dir = os.path.join(os.path.dirname(p=__file__), '..', 'results')
-    os.makedirs(img_results_dir, exist_ok=True)
-
     # Call the function with the test image
-    cropped_image_files, class_list = get_cropped_images(obj_det_model=OBJ_DET_MODEL, img=img, img_results_dir=img_results_dir)
+    uuids, cropped_image_files, class_list = get_cropped_images(obj_det_model=OBJ_DET_MODEL, img=img, img_results_dir=img_results_dir)
 
     # Assert that the function returns a list of cropped image files and a list of classes
+    assert isinstance(uuids, list)
     assert isinstance(cropped_image_files, list)
     assert isinstance(class_list, list)
 
