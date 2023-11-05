@@ -39,9 +39,9 @@ class ImageProcessor(object):
         # Load the image to text model
         self.img2text_model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 
-        # Image Directory
+        # Set the image directory
         self.img_dir = img_dir
-
+        # Set the results directory
         self.results_dir = results_dir
 
     def detect_obj(self,img_file_path):
