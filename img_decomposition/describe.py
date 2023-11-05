@@ -1,11 +1,19 @@
 from PIL import Image
+from typing import Literal
 from transformers import ViltProcessor, ViltForQuestionAnswering
 
 IMG2TEXT_PROCESSOR = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 IMG2TEXT_MODEL = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 
 
-def get_text_description(img2text_processor, img2text_model, img: Image, class_name):
+def get_text_description(
+            img2text_processor,
+            img2text_model,
+            img: Image,
+            class_name: Literal["chair", "couch", "potted plant", "bed", 
+                                "dining table", "toilet", "tv", "microwave",
+                                "oven", "sink", "refrigerator", "clock"]
+        ):
     # Make sure that the image is in RGB format
     if img.mode != "RGB":
         img = img.convert(mode="RGB")
