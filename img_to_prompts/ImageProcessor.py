@@ -70,6 +70,9 @@ class ImageProcessor(object):
         return class_list, cropped_images_files
     
     def get_text_description(self, img, class_name):
+        if img.mode != "RGB":
+            img = img.convert(mode="RGB")
+
         attributes = ['style', 'color', 'material']
         description = []
         for attr in attributes:
@@ -119,6 +122,7 @@ class ImageProcessor(object):
             prompt_obj["image_file"] = cropped_images_files[i]
             prompt_obj["obj_class"] = class_list[i]
             prompt_obj["text_description"] = self.get_text_description(img=crop_img, class_name=class_list[i])
+
             prompts.append(prompt_obj)
 
         prompt_dict = {
@@ -137,11 +141,13 @@ if __name__ == "__main__":
     # Image Directory
     img_dir = os.path.join('Images')
 
+    # Results Directory
     results_dir = os.path.join('Results')
 
+    # Image File
+    img_file = 'img_01.png'
+
     processor = ImageProcessor(img_dir=img_dir, results_dir=results_dir)
-    
-    img_file = 'img_00.png'
 
     processor.generate_img_text_prompts(img_file=img_file)
 
