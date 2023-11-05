@@ -2,15 +2,15 @@ import os
 from PIL import Image
 from img_decomposition.detect import get_cropped_images, OBJ_DET_MODEL
 
-def test_get_cropped_images():
+def test_get_cropped_images() -> None:
     # Load the test image
-    img = Image.open(os.path.join(os.path.dirname(__file__), '..', 'room.png'))
+    img = Image.open(fp=os.path.join(os.path.dirname(p=__file__), '..', 'room.png'))
 
     # Define the results directory
-    img_results_dir = os.path.join(os.path.dirname(__file__), '..', 'results')
+    img_results_dir = os.path.join(os.path.dirname(p=__file__), '..', 'results')
 
     # Call the function with the test image
-    cropped_image_files, class_list = get_cropped_images(OBJ_DET_MODEL, img, img_results_dir)
+    cropped_image_files, class_list = get_cropped_images(obj_det_model=OBJ_DET_MODEL, img=img, img_results_dir=img_results_dir)
 
     # Assert that the function returns a list of cropped image files and a list of classes
     assert isinstance(cropped_image_files, list)

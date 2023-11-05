@@ -6,7 +6,7 @@ def test_decomposition_endpoint() -> None:
     url = 'https://chriscarrollsmith--image-decompisition-api-v2-fastapi-app.modal.run/api/decompose'
     
     # Path to the image you want to upload
-    image_path = 'C:/Users/chris/Downloads/image.png'
+    image_path = 'room.png'
 
     # Assert that the image exists
     assert Path(image_path).exists()
@@ -28,7 +28,10 @@ def test_decomposition_endpoint() -> None:
             uuid="1",
             img="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==",
             keyword="pixel",
-            linklist=["https://www.google.com/"],
+            linklist=[{
+                    'thumbnailUrl': 'https://www.google.com/',
+                    'hostPageUrl': 'https://www.google.com/'
+                }],
             description="Here's a description of the image"
         )
     ]

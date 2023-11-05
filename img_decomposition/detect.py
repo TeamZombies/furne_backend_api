@@ -11,7 +11,7 @@ CLASSES = ["chair","couch","potted plant","bed","dining table","toilet",
 OBJ_DET_MODEL = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 OBJ_DET_MODEL.classes = CLASSES
 
-def get_cropped_images(obj_det_model, img, img_results_dir) -> tuple[list, list]:
+def get_cropped_images(obj_det_model, img: Image, img_results_dir: str) -> tuple[list, list]:
     # Convert PIL Image to a format suitable for the model if required
     img_for_detection = img
     if isinstance(img, Image.Image):
