@@ -28,6 +28,7 @@ torchvision = "^0.16.0"
 tqdm = "^4.66.1"
 ultralytics = "^8.0.206"
 transformers = "^4.35.0"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"

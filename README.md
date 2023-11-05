@@ -2,7 +2,7 @@
 
 ## Powered by Modal.com for parallel processing on-demand
 
-1. Create a Modal account and get your API key.
+1. To spin up a Modal instance, create a Modal account and get your API key.
 
    - Run this command to install modal client and generate token.
 
@@ -21,7 +21,7 @@
    modal deploy img_decomposition.main
    ```
 
-## How to use
+## How to use the API
 
 1. Here's how you would upload your image file to the API using CURL.
 
@@ -78,3 +78,11 @@ Sample response:
       }
    ]
    ```
+
+## Testing
+
+Unit tests are built on the pytest framework. To run the tests, run the following command from the root directory of the project.
+
+```bash
+pytest tests
+```

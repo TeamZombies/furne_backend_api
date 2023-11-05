@@ -5,7 +5,7 @@ list of objects that have a 'uuid', 'img', and 'keyword', 'linklist',
 """
 from fastapi import FastAPI
 from modal import Dict, Image, NetworkFileSystem, Stub, asgi_app, Secret
-from .search import search
+from .search import search_for_products
 from .logger import get_logger
 from pydantic import BaseModel
 from .describe import generate_descriptions, IMG2TEXT_PROCESSOR, IMG2TEXT_MODEL
@@ -50,7 +50,8 @@ app_image = (
         "torchvision>=0.9.0",
         "tqdm>=4.64.0",
         "ultralytics>=8.0.147",
-        "transformers"
+        "transformers",
+        "python-dotenv"
     )
 )
 
