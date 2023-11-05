@@ -2,7 +2,7 @@ import os
 from PIL import Image
 from img_decomposition.describe import get_text_description, generate_descriptions, IMG2TEXT_PROCESSOR, IMG2TEXT_MODEL
 
-def test_get_text_description():
+def test_get_text_description() -> None:
     # Load the image
     img_path = os.path.join(os.path.dirname(__file__), '..', 'sofa.png')
     img = Image.open(fp=img_path)
@@ -19,7 +19,7 @@ def test_get_text_description():
     assert isinstance(description, str)
     assert 'chair' in description
 
-def test_generate_descriptions():
+def test_generate_descriptions() -> None:
     # Define a list of cropped image paths and a list of classifications
     cropped_images = [os.path.join(os.path.dirname(__file__), '..', 'sofa.png')]
     image_classifications = ['chair']
