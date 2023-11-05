@@ -10,8 +10,13 @@ def img_results_dir() -> str:
     img_results_dir = os.path.join(os.path.dirname(p=__file__), 'results')
     os.mkdir(img_results_dir)
 
-    # Return the temporary directory
-    return img_results_dir
+    # Yield the temporary directory
+    yield img_results_dir
+
+    # Cleanup: delete the directory and its contents after the test is done
+    for file in os.listdir(img_results_dir):
+        os.remove(os.path.join(img_results_dir, file))
+    os.rmdir(img_results_dir)
 
 
 def test_get_cropped_images(img_results_dir) -> None:
