@@ -6,8 +6,9 @@ def test_get_cropped_images() -> None:
     # Load the test image
     img = Image.open(fp=os.path.join(os.path.dirname(p=__file__), '..', 'room.png'))
 
-    # Define the results directory
+    # Define the results directory and ensure it exists
     img_results_dir = os.path.join(os.path.dirname(p=__file__), '..', 'results')
+    os.makedirs(img_results_dir, exist_ok=True)
 
     # Call the function with the test image
     cropped_image_files, class_list = get_cropped_images(obj_det_model=OBJ_DET_MODEL, img=img, img_results_dir=img_results_dir)
