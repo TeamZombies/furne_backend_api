@@ -5,8 +5,10 @@ import json
 
 from transformers import ViltProcessor, ViltForQuestionAnswering
 
+# Initialize the ImageProcessor class
 class ImageProcessor(object):
     def __init__(self, img_dir = 'Images', results_dir = 'Results'):
+        # Define a dictionary of classes for object detection
         self.class_dict = {
         56: "chair",
         57: "couch",
@@ -22,14 +24,19 @@ class ImageProcessor(object):
         74: "clock"
         }
 
+        # Get the list of classes from the dictionary
         self.classes = [key for key in self.class_dict.keys()]
         
         # Object Detection Model
+        # Load the object detection model
         self.obj_det_model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # or yolov5m, yolov5x, custom
+        # Set the classes for the object detection model
         self.obj_det_model.classes = self.classes
 
         
+        # Load the image to text processor
         self.img2text_processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
+        # Load the image to text model
         self.img2text_model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 
         # Image Directory
