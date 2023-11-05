@@ -45,7 +45,11 @@ class ImageProcessor(object):
         self.results_dir = results_dir
 
     def detect_obj(self,img_file_path):
-        # Inference
+        # This method is used to detect objects in the image.
+        # It takes the image file path as an input.
+        # The image is passed through the object detection model.
+        # The model returns the results of the object detection.
+        # These results are then returned by the method.
         results = self.obj_det_model(img_file_path)
         return results
 
