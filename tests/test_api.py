@@ -1,5 +1,6 @@
 import requests
 from pathlib import Path
+from img_decomposition.main import DecompositionResponse
 
 def test_decomposition_endpoint() -> None:
     # Define the URL
@@ -22,22 +23,8 @@ def test_decomposition_endpoint() -> None:
     # Assert that the response code is 200
     assert response.status_code == 200
 
-    # Define expected response
-    expected_response = [
-        dict(
-            uuid="1",
-            img="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==",
-            keyword="pixel",
-            linklist=[{
-                    'thumbnailUrl': 'https://www.google.com/',
-                    'hostPageUrl': 'https://www.google.com/'
-                }],
-            description="Here's a description of the image"
-        )
-    ]
-
-    # Assert that the response is as expected
-    assert response.json() == expected_response
+    # Validate that response can be parsed as a pydantic DecompositionResponse
+    DecompositionResponse(**response.json())
 
     # Close the file after uploading
     files['image'][1].close()

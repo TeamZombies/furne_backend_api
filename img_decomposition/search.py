@@ -10,7 +10,7 @@ logger = get_logger(name=__name__)
 load_dotenv()
 
 # Define constants
-base_uri = 'https://api.cognitive.microsoft.com/bing/v7.0/images/visualsearch'
+base_uri = 'https://api.bing.microsoft.com/v7.0/images/visualsearch'
 subscription_key = os.environ.get('BING_API_KEY')
 headers = {
     'Ocp-Apim-Subscription-Key': subscription_key,
@@ -27,14 +27,17 @@ def search_for_products(image_file_paths: list[str]) -> list[dict]:
     for image_path in image_file_paths:
         with open(file=image_path, mode='rb') as image_file:
             file = {'image': (image_path, image_file, 'image/png')}
-        response = requests.post(base_uri, headers=headers, files=file)
+            response = requests.post(url=base_uri, headers=headers, files=file)
 
         if response.status_code == 200:
             # Compile the first five results into a list of dictionaries
-            results = response['tags'][0]['actions'][3]['data']['value']
+            for item in response.json()['tags'][0]['actions']:
+                if item['actionType'] == 'VisualSearch':
+                    results = item['data']['value']
+                    pagelinks = []
+            
             pagelinks = []
-
-            for result in results[0:5]:
+            for result in results[0:3]:
                 pagelinks.append({
                     'thumbnailUrl': result['thumbnailUrl'],
                     'hostPageUrl': result['hostPageUrl']
