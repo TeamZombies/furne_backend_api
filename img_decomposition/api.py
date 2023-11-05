@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException, File, UploadFile
+from PIL import Image
+from io import BytesIO
 from .main import decompose_image, DecompositionResponse
 from .logger import get_logger
 
@@ -12,9 +14,13 @@ web_app = FastAPI()
 async def decompose_and_return_response(
     image: UploadFile = File(...)
 ) -> list[DecompositionResponse]:
-    try:       
+    try:
+        # Read image file as Image
+        image_data = await image.read()
+        image_object = Image.open(fp=BytesIO(initial_bytes=image_data))
+
         # Decompose the image
-        response: list[DecompositionResponse] = decompose_image.local(image)
+        response: list[DecompositionResponse] = decompose_image.local(image_object)
 
         # Return a list of objects that have a 'uuid', 'img', and 'keyword',
         # 'linklist', (optional) image 'description'.
