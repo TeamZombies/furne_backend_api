@@ -17,7 +17,7 @@ headers = {
 }
 
 # Search for matching products given a list of image file paths
-def search_for_products(image_file_paths) -> list[dict]:
+def search_for_products(image_file_paths: list[str]) -> list[dict]:
     # Return None if no image file paths are provided
     if len(image_file_paths) == 0:
         return None
