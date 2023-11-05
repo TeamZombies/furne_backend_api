@@ -39,7 +39,7 @@ def search_for_products(image_file_paths: list[str]) -> list[dict]:
                     'thumbnailUrl': result['thumbnailUrl'],
                     'hostPageUrl': result['hostPageUrl']
                 })
-            linklists.append()
+            linklists.append(pagelinks)
         else:
             raise requests.exceptions.HTTPError((f"Request failed with status code {response.status_code}: {response.text}"))
         
