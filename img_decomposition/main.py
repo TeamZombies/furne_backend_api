@@ -103,8 +103,8 @@ def decompose_image(image) -> list[DecompositionResponse]:
 
     # Detect objects in the image and return a list of prompt dictionaries
     descriptions = generate_descriptions(
-            img_file=image,
-            obj_det_model=OBJ_DET_MODEL,
+            img_file=cropped_images,
+            image_classifications=image_classifications,
             img2text_processor=IMG2TEXT_PROCESSOR,
             img2text_model=IMG2TEXT_MODEL
         )

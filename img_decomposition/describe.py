@@ -34,7 +34,15 @@ def get_text_description(
     return " ".join(description)
 
 
-def generate_descriptions(cropped_images, image_classifications, results_dir, img2text_processor, img2text_model):  
+def generate_descriptions(
+            cropped_images: list[str],
+            image_classifications: list[Literal[
+                                "chair", "couch", "potted plant", "bed", 
+                                "dining table", "toilet", "tv", "microwave",
+                                "oven", "sink", "refrigerator", "clock"]],
+            img2text_processor,
+            img2text_model
+        ) -> list:
     # Generate a description for each cropped image
     descriptions = []
     for image, classification in zip(cropped_images, image_classifications):
