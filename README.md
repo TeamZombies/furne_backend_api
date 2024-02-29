@@ -1,5 +1,7 @@
 # Fast Image decomposition API
 
+This Python API for the Furn-E web app takes a generated interior design image and runs it through an object detection model to identify furniture in the image. It then performs a reverse image search with Microsoft Bing's image search API to display shopping results. Meant to be used with our [Vue frontend](https://github.com/TeamZombies/furne_frontend).
+
 ## Powered by Modal.com for parallel processing on-demand
 
 1. To spin up a Modal instance, create a Modal account and get your API key.
